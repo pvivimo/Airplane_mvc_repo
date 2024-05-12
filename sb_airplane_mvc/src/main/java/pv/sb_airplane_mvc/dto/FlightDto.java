@@ -1,21 +1,22 @@
 package pv.sb_airplane_mvc.dto;
 
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 
 
-public class FlightsDto {
+public class FlightDto {
 	
-private String departureCity;
-	
+	private String departureCity;
 	private LocalDateTime departureDate;
 	private String arrivalCity;
 	private LocalDateTime arrivalDate;
 	private String flightNumber;
 	private String captain;
+	private String flightTime;
 	
 	
-	public FlightsDto(String departureCity, LocalDateTime departureDate, String arrivalCity, LocalDateTime arrivalDate,
-			String flightNumber, String captain) {
+	public FlightDto(String departureCity, LocalDateTime departureDate, String arrivalCity, LocalDateTime arrivalDate,
+			String flightNumber, String captain, String flightTime) {
 		super();
 		this.departureCity = departureCity;
 		this.departureDate = departureDate;
@@ -23,16 +24,19 @@ private String departureCity;
 		this.arrivalDate = arrivalDate;
 		this.flightNumber = flightNumber;
 		this.captain = captain;
+		this.flightTime = flightTime;
 	}
-
+	
 
 	public String getDepartureCity() {
 		return departureCity;
 	}
 
+
 	public void setDepartureCity(String departureCity) {
 		this.departureCity = departureCity;
 	}
+
 
 	public LocalDateTime getDepartureDate() {
 		return departureDate;
@@ -62,6 +66,7 @@ private String departureCity;
 		return flightNumber;
 	}
 
+
 	public void setFlightNumber(String flightNumber) {
 		this.flightNumber = flightNumber;
 	}
@@ -74,13 +79,29 @@ private String departureCity;
 		this.captain = captain;
 	}
 
+	public String getFlightTime() {
+		
+		String flightTime = "";
+		long minutes = ChronoUnit.MINUTES.between(departureDate, arrivalDate);
+		flightTime = minutes + "";
+		
+		return flightTime;
+	}
+
+	public void setFlightTime(String flightTime) {
+		this.flightTime = flightTime;
+	}
 
 	@Override
 	public String toString() {
-		return "FlightsDto [departureCity=" + departureCity + ", departureDate=" + departureDate + ", arrivalCity="
+		return "FlightDto [departureCity=" + departureCity + ", departureDate=" + departureDate + ", arrivalCity="
 				+ arrivalCity + ", arrivalDate=" + arrivalDate + ", flightNumber=" + flightNumber + ", captain="
-				+ captain + "]";
+				+ captain + ", flightTime=" + flightTime + "]";
 	}
+	
+	
+
+
 	
 	
 

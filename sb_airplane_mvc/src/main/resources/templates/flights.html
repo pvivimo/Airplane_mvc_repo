@@ -5,6 +5,27 @@
 		<title>Insert title here</title>
 	</head>
 	<body>
+		<table>
+			<tr>
+				<th>Departure City</th>
+				<th>Departure Date</th>
+				<th>Arrival City</th>
+				<th>Arrival Date</th>
+				<th>Flight Number</th>
+				<th>Captain</th>
+				<th>Flight Time (min)</th>
+			</tr>
+			<tr th:each="flightDto : ${flightsdtolist.getFlightsDtoList()}">
+				<td th:text="${flightDto.getDepartureCity()}"></td>
+				<td th:text="${flightDto.getDepartureDate()}"></td>
+				<td th:text="${flightDto.getArrivalCity()}"></td>
+				<td th:text="${flightDto.getArrivalDate()}"></td>
+				<td th:text="${flightDto.getFlightNumber()}"></td>
+				<td th:text="${flightDto.getCaptain()}"></td>
+				<td th:text="${flightDto.getFlightTime()}"></td>
+			</tr>
+		
+		</table>
 	
 	</body>
 </html>

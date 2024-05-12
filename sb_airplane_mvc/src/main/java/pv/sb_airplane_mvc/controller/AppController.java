@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import pv.sb_airplane_mvc.dto.CaptainsDtoList;
 import pv.sb_airplane_mvc.dto.FlightsDtoList;
 import pv.sb_airplane_mvc.service.AppService;
 
@@ -28,5 +29,14 @@ public class AppController {
 		return "flights.html";
 	}
 	
+	
+	@GetMapping("/flights/captainstime")
+	public String showCaptainsTime(Model model) {
+		
+		CaptainsDtoList captainsDtoList = service.getCaptainsTime();
+		model.addAttribute("captainsDtoList", captainsDtoList);
+		
+		return "captainstime.html";
+	}
 
 }
