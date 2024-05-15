@@ -101,4 +101,64 @@ public class AppService {
 		return captainsDtoList;
 	}
 
+	public CaptainsDtoList getCaptainBackToArrivalCity() {
+		
+		CaptainsDtoList captainsDtoList = new CaptainsDtoList();
+		
+		List<Flight> flights = db.getAllFlights();
+		for(int index = 0; index < flights.size(); index++){
+			
+			Flight currentFlight = flights.get(index);
+			String captainName = currentFlight.getCaptain();
+			
+			//Ell. hogy van-e átszállással visszatérő útvonal
+			boolean hasRoute = false;
+			
+			List<FlightDto> captainFlights = new ArrayList<>();
+				for(int index = 0; index < flights.size(); index++){	
+
+					Flight currentFlight = flights.get(index);
+					if(currentFlight.getCaptain().equals(CaptainName)){
+				
+						FlightDto flightDto = new FlightDto(
+							currentFlight.getDepartureCity(),
+							currentFlight.getDepartureDate(),
+							currentFlight.getArrivalCity(),
+							currentFlight.getArrivalDate (),
+							currentFlight.getFlightNumber(),
+							currentFlight.getCaptain(),
+							currentFlight.getFlightTime(),
+							));
+						captainFlights.add(flightDto);			
+					}
+							
+				}
+			//Útvonalak ellenőrzése
+			if(captainFlights.size() >= 2){
+
+			for(int index = 0; index  captainFlights.size()-1; index++){
+
+				FlightDto currentFlight = captainFlights.get(index);
+				for(int nextIndex = 0; nextIndex < captainFlights.size(); nextIndex++){	
+
+					FlightDto nextFlight = captainFlights.get(nextIndex);
+					if(currentFlight.getDepartureCity().eqals(nextFlight.getArrivalCity())){
+	
+						hasRoute = true;
+						break;
+					}
+				}
+
+			}
+			//megfelelő útvonal esetén kapitánylistához adjuk
+			if(hasRoute == true){
+				CaptainDto captainDto = new CaptainDto(captainName, null); //repülési idő most nem releváns számunkra
+	
+					captainDto.setFlights(captainFlights);
+					captainDtoList.addCaptainDto(captainDto);
+			}
+		
+		return captainsDtoList;
+	}
+
 }
