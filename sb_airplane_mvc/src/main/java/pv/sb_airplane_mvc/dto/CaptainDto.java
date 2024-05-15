@@ -4,11 +4,13 @@ public class CaptainDto {
 	
 	private String captainName;
 	private Long flightTime;
+	private List<FlightDto> flights;
 	
 		
 	
 	public CaptainDto() {
 		super();
+		this.flights = new ArrayList<>();
 	}
 
 
@@ -41,6 +43,33 @@ public class CaptainDto {
 		if(flightTime != null) {
 			this.flightTime += flightTime;
 		}
+		
+	}
+
+	public boolean hasRouteToStartCityWithTransfer() {
+		
+		boolean result = false;
+		
+		for(int index = 0; index < flights.size(); index++) {
+			
+			FlightDto currentFlightDto = flights.get(index);
+			
+			for(int nextIndex = index+1; nextIndex < flights.size(); nextIndex++) {
+				
+				FlightDto nextFlightDto = flights.get(nextIndex);
+				
+				if(currentFlightDto.getArrivalDate().isBefore(nextFlightDto.getDepartureDate())){
+					
+					if(currentFlightDto.getArrivalCity().equals(nextFlightDto.getDepartureCity())) {
+						
+						result = true;
+					}
+					
+				}
+			}
+		}
+		
+		return result;
 		
 	}
 
